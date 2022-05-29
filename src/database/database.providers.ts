@@ -1,5 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
+import { config } from 'dotenv'
+
+config()
+
+console.log(process.env.DB_DIALECT);
+
 
 export const databaseProviders = [
     {
@@ -13,10 +18,7 @@ export const databaseProviders = [
                 password: '123456',
                 database: 'bibliotecadb',
                 entities: [
-                    'src/models/**/*.ts'
-                ],
-                migrations: [
-                    "src/database/migrations/**/*.ts"
+                    __dirname + '/../**/*.entity{.ts,.js}',
                 ],
                 synchronize: true,
             });
@@ -25,6 +27,3 @@ export const databaseProviders = [
         },
     },
 ];
-
-@Injectable()
-export class DatabaseProviders { }
